@@ -24,7 +24,7 @@ Overseer is a command-line tool that provides secure configuration management ca
 
 ### From Source
 
-```bash
+```shell
 git clone https://github.com/a-ryoo/overseer.git
 cd overseer
 go build -o overseer .
