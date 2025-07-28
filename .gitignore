@@ -1,0 +1,8 @@
+.idea
+.idea/
+bin
+*.iml
+allure-results
+.vscode/
+dist/
+env.*
