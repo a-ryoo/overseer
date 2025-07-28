@@ -24,7 +24,7 @@ Overseer is a command-line tool that provides secure configuration management ca
 
 ### From Source
 
-```shell
+```shell script
 git clone https://github.com/a-ryoo/overseer.git
 cd overseer
 go build -o overseer .
@@ -40,7 +40,7 @@ go build -ldflags "-X main.Version=v1.0.0 -X main.Commit=$(git rev-parse HEAD) -
 
 1. Create a template file, for example env.tmpl with content like
 
-```shell
+```shell script
 # system is your kv2 store stage/redis is path for redis creds, #host is a key for corresponding value
 export REDIS_HOST={{system/stage/redis#host}}
 export REDIS_PORT={{system/stage/redis#port}}
