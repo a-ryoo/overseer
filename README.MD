@@ -29,15 +29,12 @@ git clone https://github.com/a-ryoo/overseer.git
 cd overseer
 go build -o overseer .
 ```
-```
-
 
 ### Build with Version Information
 
 ```shell script
 go build -ldflags "-X main.Version=v1.0.0 -X main.Commit=$(git rev-parse HEAD) -X main.Date=$(date -u +%Y-%m-%dT%H:%M:%SZ)" -o overseer .
 ```
-
 
 ## Configuration
 
