@@ -1,5 +1,3 @@
-I'll help you create a README file for your Go project. First, let me explore the project structure to understand what kind of project this is and gather relevant information.Let me explore the project structure to better understand what this application does:Based on the project structure I can see, this appears to be a Go application called "Overseer". Let me create a comprehensive README for this project:
-
 ```markdown
 # Overseer
 
@@ -26,13 +24,11 @@ Overseer is a command-line tool that provides secure configuration management ca
 
 ### From Source
 
-```bash
+```shell script
 git clone https://github.com/a-ryoo/overseer.git
 cd overseer
 go build -o overseer .
 ```
-```
-
 
 ### Build with Version Information
 
@@ -40,12 +36,11 @@ go build -o overseer .
 go build -ldflags "-X main.Version=v1.0.0 -X main.Commit=$(git rev-parse HEAD) -X main.Date=$(date -u +%Y-%m-%dT%H:%M:%SZ)" -o overseer .
 ```
 
-
 ## Configuration
 
 1. Create a template file, for example env.tmpl with content like
 
-```shell
+```shell script
 # system is your kv2 store stage/redis is path for redis creds, #host is a key for corresponding value
 export REDIS_HOST={{system/stage/redis#host}}
 export REDIS_PORT={{system/stage/redis#port}}
