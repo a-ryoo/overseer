@@ -11,6 +11,7 @@ jobs:
       matrix:
         goos: [linux, windows, darwin]
         goarch: [amd64, arm64]
+
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -20,27 +21,19 @@ jobs:
         with:
           go-version: '1.24'
 
-      - name: Cache Go modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/go-build
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-
       - name: Build binary
+        id: build
         run: |
-          output=overseer-${{ matrix.goos }}-${{ matrix.goarch }}
+          FILENAME=overseer-${{ matrix.goos }}-${{ matrix.goarch }}
           if [ "${{ matrix.goos }}" = "windows" ]; then
-            output+='.exe'
+            FILENAME="${FILENAME}.exe"
           fi
-          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
-            go build -ldflags="-s -w" -o "$output" .
+          echo "FILENAME=$FILENAME" >> "$GITHUB_ENV"
+          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -ldflags="-s -w" -o "$FILENAME" .
 
-      - name: Upload artifact
-        uses: actions/upload-release-asset@v1
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v1
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ${{ output }}
-          asset_name: ${{ output }}
-          asset_content_type: application/octet-stream
+          files: ${{ env.FILENAME }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
