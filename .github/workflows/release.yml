@@ -1,4 +1,4 @@
-name: Build and Release
+name: Build and Release Binary
 
 on:
   release:
@@ -13,7 +13,7 @@ jobs:
         goarch: [amd64, arm64]
 
     steps:
-      - name: Checkout source
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Go
@@ -30,7 +30,7 @@ jobs:
           echo "FILENAME=$FILENAME" >> $GITHUB_ENV
           GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -ldflags="-s -w" -o "$FILENAME" .
 
-      - name: Upload to release
+      - name: Upload binary to release
         uses: softprops/action-gh-release@v1
         with:
           files: ${{ env.FILENAME }}
