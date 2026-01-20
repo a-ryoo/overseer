@@ -3,10 +3,11 @@ package services
 import (
 	"context"
 	"fmt"
-	"github.com/a-ryoo/overseer/config"
-	json "github.com/json-iterator/go"
 	"os"
 	"strings"
+
+	"github.com/a-ryoo/overseer/config"
+	json "github.com/json-iterator/go"
 
 	"github.com/gookit/goutil"
 
@@ -116,7 +117,7 @@ func (s *VaultSecretsManager[T]) getClient(ctx context.Context) *vault.Client {
 		client.SetMaxRetries(10)
 		return client
 
-	case !goutil.IsEmpty(AppRoleID) && !goutil.IsEmpty(AppRoleSecret):
+	case !goutil.IsEmpty(s.conf.VaultRoleID) && !goutil.IsEmpty(s.conf.VaultRoleSecret):
 		client, err := vault.NewClient(conf)
 		if err != nil {
 			log.Panicf("[VAULT] Unable to initialize Internal Vault client: %v", err)
