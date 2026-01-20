@@ -1,12 +1,13 @@
 package cmd
 
 import (
+	"os"
+	"path/filepath"
+
 	"github.com/a-ryoo/overseer/config"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
-	"os"
-	"path/filepath"
 )
 
 var (
@@ -14,6 +15,7 @@ var (
 	vaultToken    string
 	approleID     string
 	approleSecret string
+	conf          config.LocalConfig
 )
 
 var rootCmd = &cobra.Command{
@@ -38,6 +40,7 @@ func Start() error {
 			log.Fatalf("failed to parse existing config: %v", err)
 		}
 	}
+	conf = cfg
 	vaultURL = cfg.VaultURL
 	vaultToken = cfg.VaultToken
 	approleID = cfg.VaultRoleID

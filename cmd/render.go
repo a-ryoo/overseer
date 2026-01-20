@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"github.com/a-ryoo/overseer/config"
+	"os"
+
 	svc "github.com/a-ryoo/overseer/services"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"os"
 )
 
 var (
@@ -23,12 +23,6 @@ var renderCmd = &cobra.Command{
 	Short: "Render a template",
 	Run: func(cmd *cobra.Command, args []string) {
 		var tempSvc = svc.NewTemplatingService()
-		var conf = config.LocalConfig{
-			VaultURL:        vaultURL,
-			VaultToken:      vaultToken,
-			VaultRoleID:     approleID,
-			VaultRoleSecret: approleSecret,
-		}
 		var vaultSvc = svc.NewSecretsManager[map[string]string](cmd.Context(), conf)
 		var rendered = tempSvc.RenderFile(src, dest, func(store, path, key string) string {
 			var err error

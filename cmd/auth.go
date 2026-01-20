@@ -2,12 +2,13 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
+
 	"github.com/a-ryoo/overseer/config"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
-	"os"
-	"path/filepath"
 )
 
 func init() {
